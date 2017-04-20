@@ -24,6 +24,7 @@ namespace ArabicTutorials.Queries.UnitTests.Controllers
             var result = controller.GetAll();
 
             //Assert
+            Assert.NotNull(result);
             Assert.NotEqual(0, result.Count());
         }
     }
