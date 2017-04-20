@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArabicTutorials", "ArabicTutorials\ArabicTutorials.csproj", "{D653262C-3DDB-46E9-8CF6-7A8F4299B3D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArabicTutorials", "ArabicTutorials\ArabicTutorials.csproj", "{D653262C-3DDB-46E9-8CF6-7A8F4299B3D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArabicTutorials.Common", "ArabicTutorials.Common\ArabicTutorials.Common.csproj", "{0BD205A5-5A29-49B4-B240-A50AEBBD0825}"
 EndProject
