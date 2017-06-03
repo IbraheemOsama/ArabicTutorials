@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ArabicTutorials.Data;
 using ArabicTutorials.Data.Models;
-using ArabicTutorials.Data.Sql;
 using ArabicTutorials.Models;
 using ArabicTutorials.Services;
 using Autofac;
@@ -52,12 +51,12 @@ namespace ArabicTutorials
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ArabicTutorialsDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ArabicTutorialsDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ArabicTutorialsDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<ArabicTutorialsDbContext>()
+            //    .AddDefaultTokenProviders();
 
             services.AddMvc();
 
@@ -103,7 +102,7 @@ namespace ArabicTutorials
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            //app.UseIdentity();
 
             app.UseMvc(routes =>
             {
