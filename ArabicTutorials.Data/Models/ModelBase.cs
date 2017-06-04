@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ArabicTutorials.Data.Models
 {
     public abstract class ModelBase
     {
-        public int Id { get; set; }
+        [BsonId]
+        public string Id { get; set; }
 
         public User CreatedBy { get; set; }
 

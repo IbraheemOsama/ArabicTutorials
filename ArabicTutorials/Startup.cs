@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ArabicTutorials.Bootstrap;
 using ArabicTutorials.Common;
 using ArabicTutorials.Common.Logger;
 using AspNetCore.Identity.MongoDB;
@@ -24,6 +25,15 @@ namespace ArabicTutorials
 {
     public class Startup
     {
+        private readonly IHostingEnvironment _env;
+
+        private const string ApiSettingSectionKey = "ApiSettings";
+        private const string FacebookKeys = "FacebookKeys";
+
+        public IConfigurationRoot Configuration { get; }
+
+        public IContainer ApplicationContainer { get; private set; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -41,17 +51,7 @@ namespace ArabicTutorials
             Configuration = builder.Build();
             _env = env;
         }
-
-        private readonly IHostingEnvironment _env;
-
-        private const string ApiSettingSectionKey = "ApiSettings";
-        private const string FacebookKeys = "FacebookKeys";
-
-        public IConfigurationRoot Configuration { get; }
-
-        public IContainer ApplicationContainer { get; private set; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDb"));
@@ -63,7 +63,6 @@ namespace ArabicTutorials
                 var database = client.GetDatabase(options.Value.DatabaseName);
                 return new MongoUserStore<User>(database);
             });
-
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -88,40 +87,17 @@ namespace ArabicTutorials
             services.AddOptions();
 
             services.AddDataProtection();
-
-
-            // Create the container builder.
-            var builder = new ContainerBuilder();
-
-            // Register dependencies, populate the services from
-            // the collection, and build the container. If you want
-            // to dispose of the container at the end of the app,
-            // be sure to keep a reference to it as a property or field.
-            builder.RegisterType<Logger>().As<ILogger>();
-
-            var apiSettings = Configuration
-              .GetSection(ApiSettingSectionKey).Get<Settings>();
-
-            builder.RegisterType<HttpContextAccessor>().AsSelf().SingleInstance();
-            builder.RegisterInstance(apiSettings).AsSelf();
-            builder.RegisterType<IdentityMarkerService>().AsSelf().SingleInstance();
-            builder.RegisterType<UserValidator<User>>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PasswordValidator<User>>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PasswordHasher<User>>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<UpperInvariantLookupNormalizer>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<IdentityErrorDescriber>().AsSelf().SingleInstance();
-            builder.RegisterType<SecurityStampValidator<User>>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<UserClaimsPrincipalFactory<User>>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder.RegisterType<UserManager<User>>().AsSelf().SingleInstance();
-            builder.RegisterType<SignInManager<User>>().AsSelf().InstancePerLifetimeScope();
             AddDefaultTokenProviders(services);
 
+            var builder = new ContainerBuilder();
+            builder.RegisterType<Logger>().As<ILogger>();
+            var apiSettings = Configuration
+              .GetSection(ApiSettingSectionKey).Get<Settings>();
+            builder.RegisterType<HttpContextAccessor>().AsSelf().SingleInstance();
+            builder.RegisterInstance(apiSettings).AsSelf();
+            builder.RegisterModule<IdentityModule>();
             builder.Populate(services);
             ApplicationContainer = builder.Build();
-
-            // Create the IServiceProvider based on the container.
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
@@ -141,7 +117,6 @@ namespace ArabicTutorials
             services.AddSingleton(provider);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())

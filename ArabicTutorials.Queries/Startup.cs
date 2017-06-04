@@ -1,6 +1,8 @@
 ﻿using System;
 using ArabicTutorials.Common;
 using ArabicTutorials.Common.Logger;
+using ArabicTutorials.Data;
+using ArabicTutorials.Data.Bootstrap;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +44,7 @@ namespace ArabicTutorials.Queries
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
             builder.RegisterType<Logger>().As<ILogger>();
+            builder.RegisterModule<MongoPersistenceModule>();
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 
