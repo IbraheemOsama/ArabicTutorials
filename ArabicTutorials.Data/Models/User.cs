@@ -1,10 +1,20 @@
-﻿
+﻿using AspNetCore.Identity.MongoDB;
+using AspNetCore.Identity.MongoDB.Models;
+
 namespace ArabicTutorials.Data.Models
 {
-    public class User
+    public class User : MongoIdentityUser
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public User(string userName, string email) : base(userName, email)
+        {
+        }
+
+        public User(string userName, MongoUserEmail email) : base(userName, email)
+        {
+        }
+
+        public User(string userName) : base(userName)
+        {
+        }
     }
 }
