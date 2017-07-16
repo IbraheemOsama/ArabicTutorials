@@ -6,7 +6,7 @@ using ArabicTutorials.Data.Models;
 
 namespace ArabicTutorials.Data.Infrastructure
 {
-    public class MongoRepository<TDocument> : IRepository<TDocument> where TDocument : MongoDocument
+    public class MongoRepository<TDocument> : IRepository<TDocument> where TDocument : ModelBase
     {
         private readonly IMongoHelper<TDocument> _mongoHelper;
         private readonly string _collectionName;

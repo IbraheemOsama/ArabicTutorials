@@ -20,6 +20,8 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.Identity.MongoDB" Version="1.0.0-rc3" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.0.0" />
+    <PackageReference Include="IdentityServer4" Version="1.5.2" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />

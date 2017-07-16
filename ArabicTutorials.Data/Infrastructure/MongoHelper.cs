@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace ArabicTutorials.Data.Infrastructure
 {
-    public class MongoHelper<TDocument> :  IMongoHelper<TDocument> where TDocument : MongoDocument
+    public class MongoHelper<TDocument> :  IMongoHelper<TDocument> where TDocument : ModelBase
     {
         private readonly IAppConfig _appConfig;
         private readonly MongoClient _mongoClient;

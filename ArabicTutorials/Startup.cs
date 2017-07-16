@@ -14,12 +14,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using ILogger = ArabicTutorials.Common.ILogger;
 using ArabicTutorials.Common.Config;
 using ArabicTutorials.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
+using ILogger = ArabicTutorials.Common.ILogger;
 
 namespace ArabicTutorials
 {
@@ -87,6 +87,15 @@ namespace ArabicTutorials
             services.AddOptions();
 
             services.AddDataProtection();
+
+            services.AddIdentityServer()
+                .AddTemporarySigningCredential()
+                .AddInMemoryPersistedGrants()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<User>();
+
             AddDefaultTokenProviders(services);
 
             var builder = new ContainerBuilder();
@@ -136,10 +145,12 @@ namespace ArabicTutorials
 
             app.UseStaticFiles();
 
+            app.UseIdentity();
+            app.UseIdentityServer();
+
             var facebookKeys = Configuration
                .GetSection(FacebookKeys).Get<FacebookAuthKeys>();
-
-            app.UseIdentity().UseFacebookAuthentication(new FacebookOptions
+            app.UseFacebookAuthentication(new FacebookOptions
             {
                 AppId = facebookKeys.ApplicationId,
                 AppSecret = facebookKeys.ApplicationSecret

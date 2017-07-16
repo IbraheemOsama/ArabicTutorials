@@ -6,7 +6,7 @@ using ArabicTutorials.Data.Models;
 
 namespace ArabicTutorials.Data.Infrastructure
 {
-    public interface IMongoHelper<TDocument> where TDocument : MongoDocument
+    public interface IMongoHelper<TDocument> where TDocument : ModelBase
     {
         Task<IList<TDocument>> GetAllAsync(string collectionName = null);
 
