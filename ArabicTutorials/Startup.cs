@@ -88,14 +88,6 @@ namespace ArabicTutorials
 
             services.AddDataProtection();
 
-            services.AddIdentityServer()
-                .AddTemporarySigningCredential()
-                .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<User>();
-
             AddDefaultTokenProviders(services);
 
             var builder = new ContainerBuilder();
@@ -146,8 +138,7 @@ namespace ArabicTutorials
             app.UseStaticFiles();
 
             app.UseIdentity();
-            app.UseIdentityServer();
-
+            
             var facebookKeys = Configuration
                .GetSection(FacebookKeys).Get<FacebookAuthKeys>();
             app.UseFacebookAuthentication(new FacebookOptions
