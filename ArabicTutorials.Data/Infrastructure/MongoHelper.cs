@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ArabicTutorials.Common;
 using ArabicTutorials.Data.Models;
 using MongoDB.Driver;
 
@@ -9,12 +10,12 @@ namespace ArabicTutorials.Data.Infrastructure
 {
     public class MongoHelper<TDocument> :  IMongoHelper<TDocument> where TDocument : ModelBase
     {
-        private readonly IAppConfig _appConfig;
+        private readonly Settings _appSettings;
         private readonly MongoClient _mongoClient;
 
-        public MongoHelper(IMongoConnectionFactory mongoConnectionFactory, IAppConfig appConfig)
+        public MongoHelper(IMongoConnectionFactory mongoConnectionFactory, Settings appConfig)
         {
-            _appConfig = appConfig;
+            _appSettings = appConfig;
             _mongoClient = mongoConnectionFactory.GetClient();
         }
 
@@ -91,7 +92,7 @@ namespace ArabicTutorials.Data.Infrastructure
         private IMongoCollection<TDocument> GetCollection(string collectionName)
         {
             collectionName = string.IsNullOrEmpty(collectionName) ? typeof(TDocument).Name : collectionName;
-            return _mongoClient.GetDatabase(_appConfig.DbName()).GetCollection<TDocument>(collectionName);
+            return _mongoClient.GetDatabase(_appSettings.MongoDbName).GetCollection<TDocument>(collectionName);
         }
 
         public Task Remove(string id, string collectionName = null)

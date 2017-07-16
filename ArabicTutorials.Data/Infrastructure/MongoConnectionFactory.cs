@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Conventions;
+﻿using ArabicTutorials.Common;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
 namespace ArabicTutorials.Data.Infrastructure
@@ -8,9 +9,9 @@ namespace ArabicTutorials.Data.Infrastructure
         private readonly MongoUrl _url;
         private  MongoClient _client;
 
-        public MongoConnectionFactory(IAppConfig configurations)
+        public MongoConnectionFactory(Settings configurations)
         {
-            var connectionString = configurations.MongoConnectionString();
+            var connectionString = configurations.MongoDbConnectionString;
             _url = MongoUrl.Create(connectionString);
         }
 

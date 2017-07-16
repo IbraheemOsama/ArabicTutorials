@@ -3,6 +3,7 @@ using ArabicTutorials.Common;
 using ArabicTutorials.Common.Logger;
 using ArabicTutorials.Data;
 using ArabicTutorials.Data.Bootstrap;
+using ArabicTutorials.Data.Infrastructure;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,9 @@ namespace ArabicTutorials.Queries
             // the collection, and build the container. If you want
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
+            var apiSettings = Configuration
+            .GetSection(ApiSettingSectionKey).Get<Settings>();
+            builder.RegisterInstance(apiSettings).AsSelf();
             builder.RegisterType<Logger>().As<ILogger>();
             builder.RegisterModule<MongoPersistenceModule>();
             builder.Populate(services);

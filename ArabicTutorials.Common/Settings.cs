@@ -11,5 +11,7 @@ namespace ArabicTutorials.Common
         public string WebUrl { get; set; }
         public string QueryServiceUrl { get; set; }
         public string CommandServiceUrl { get; set; }
+        public string MongoDbName { get; set; }
+        public string MongoDbConnectionString { get; set; }
     }
 }
