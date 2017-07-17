@@ -1,11 +1,11 @@
 ﻿{
   "ReRoutes": [
-   {
-      "DownstreamPathTemplate": "/posts",
-      "DownstreamScheme": "https",
-      "DownstreamHost": "jsonplaceholder.typicode.com",
-      "DownstreamPort": 443,
-      "UpstreamPathTemplate": "/posts",
+    {
+      "DownstreamPathTemplate": "/api/Videos/GetAll",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 63432,
+      "UpstreamPathTemplate": "/api/Videos/GetAll",
       "UpstreamHttpMethod": [ "Get" ],
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,

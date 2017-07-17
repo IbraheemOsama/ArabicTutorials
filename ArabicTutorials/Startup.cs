@@ -16,13 +16,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ArabicTutorials.Common.Config;
 using ArabicTutorials.Data.Models;
-using CacheManager.Core;
-using Consul;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Mvc;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 using ILogger = ArabicTutorials.Common.ILogger;
 
@@ -81,7 +76,7 @@ namespace ArabicTutorials
             services.AddMvc(options =>
             {
                 options.SslPort = 44321;
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.Filters.Add(new RequireHttpsAttribute());
             });
 
             services.AddAuthentication(options =>
@@ -92,16 +87,7 @@ namespace ArabicTutorials
             services.AddOptions();
 
             services.AddDataProtection();
-
-            // Gate way
-            Action<ConfigurationBuilderCachePart> settings = (x) =>
-            {
-               
-            };
-
-            services.AddOcelot(Configuration, settings);
-
-
+            
             AddDefaultTokenProviders(services);
 
             var builder = new ContainerBuilder();
@@ -132,7 +118,7 @@ namespace ArabicTutorials
             services.AddSingleton(provider);
         }
 
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -152,8 +138,6 @@ namespace ArabicTutorials
             app.UseStaticFiles();
 
             app.UseIdentity();
-
-            await app.UseOcelot();
 
             var facebookKeys = Configuration
                .GetSection(FacebookKeys).Get<FacebookAuthKeys>();

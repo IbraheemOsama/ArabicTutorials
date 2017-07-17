@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26228.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArabicTutorials.Commands", "ArabicTutorials.Commands\ArabicTutorials.Commands.csproj", "{B447D9DF-2101-4667-AB37-08F1071DA2F7}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArabicTutorials.Common", "ArabicTutorials.Common\ArabicTutorials.Common.csproj", "{24A77443-29CF-4145-AD23-47D5320B6B5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArabicTutorials.Queries.UnitTests", "ArabicTutorials.Queries.UnitTests\ArabicTutorials.Queries.UnitTests.csproj", "{35D275D4-EDE6-4FA1-84B2-8E845CBF5023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArabicTutorials.Gateway", "ArabicTutorials.Gateway\ArabicTutorials.Gateway.csproj", "{B1641EB4-9A73-4034-ABB3-27173C83D500}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{35D275D4-EDE6-4FA1-84B2-8E845CBF5023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D275D4-EDE6-4FA1-84B2-8E845CBF5023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D275D4-EDE6-4FA1-84B2-8E845CBF5023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1641EB4-9A73-4034-ABB3-27173C83D500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1641EB4-9A73-4034-ABB3-27173C83D500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1641EB4-9A73-4034-ABB3-27173C83D500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1641EB4-9A73-4034-ABB3-27173C83D500}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
